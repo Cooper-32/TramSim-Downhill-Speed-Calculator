@@ -7,14 +7,39 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="container">
-    <h3 class="title">TramSim Speed Calculator</h3>
-  <input type="number" placeholder="e.g 30km/h" id="input">
-  <br>
-  <p id="displayResult">Topspeed: 0km/h</p>
-  <br>
-  <button onclick="calculate()">Calculate</button>
-  <script src="script.js"></script>
+  <select id="calcMode" selected="averageStats">
+    <option value="averageStats">Average Stats</option>
+    <option value="timeDistance">Time for Distance </option>
+    <option value="timePoints">Time for TSP</option>
+    <option value="speedglitch">Speed Glitch</option>
+    <option value="help">-help</option>
+  </select>
+<div id="barContainer">
+<span id="item">0.00%</span>
+</div>
+  <div class="form">
+    <h3 class="title">TramSim Stats Calculator</h3>
+    <div class="input-row">
+      <input type="number" placeholder="e.g 125km" id="distanceInput" class="input2"><span class="distanceInput">km</span>
+    </div>
+    <div class="input-row">
+      <input type="number" placeholder="e.g 8300" id="tsp" class="input2"><span class="tspInput">TSP</span>
+    </div>
+    <div class="input-row">
+    <input type="number" placeholder="e.g 2h" id="hoursInput" class="input2"><span class="hourInput">h</span>
+    </div>
+    <div class="input-row">
+    <input type="number" placeholder="e.g 25min" id="minutesInput" class="input2"><span class="minutesInput">min</span>
+      </div>
+    <p id="displayResult2">∅ Speed: 0km/h, 0 TSP/h</p>
+  <button onclick="calculate()" class="calcSpeedBtn">Calculate</button>
   </div>
+  <div class="progressContainer">
+    <div class="progressItems">
+<input type="number" id="distanceGoal" placeholder="e.g 2835km"><span>km</span>
+ </div>
+<button onclick="addDistance()" class="addDistance">Add Distance</button>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
