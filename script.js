@@ -88,4 +88,5 @@ function loadProgressBar() {
 const barItem = document.getElementById("item");
 progress = Number(localStorage.getItem("progress")) || 0;
 barItem.style.width = progress + "%";
+barItem.innerHTML = progress;
 }
