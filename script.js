@@ -1,4 +1,4 @@
-const AVG_SPEED = 155;
+const AVG_SPEED = 152;
 const TOP_SPEED = 161.75;
 const AVG_POINTS = 15000;
 const REQ_DISTANCE = 40008;
@@ -85,8 +85,10 @@ function addDistance() {
 }
 
 function loadProgressBar() {
-const barItem = document.getElementById("item");
-progress = Number(localStorage.getItem("progress")) || 0;
-barItem.style.width = progress + "%";
-barItem.innerHTML = progress;
+  setTimeout(()=> {
+  const barItem = document.getElementById("item");
+  progress = Number(localStorage.getItem("progress")) || 0;
+  barItem.style.width = progress + "%";
+  barItem.innerHTML = progress;
+ }, 1000)
 }
