@@ -6,6 +6,7 @@ let hours;
 let minutes;
 let distance;
 let points;
+let progress;
 let displayResult = document.getElementById("displayResult2");
 let selectElement = document.getElementById("calcMode");
 let selected = "averageStats";
@@ -80,4 +81,11 @@ function addDistance() {
   const barItem = document.getElementById("item");
   barItem.style.width = bar + "%";
   document.getElementById("item").innerHTML = bar <= 0 ? `0.00%` : bar <= 100 ? `${bar.toFixed(2)}%` : `100.00%`;
+  localStorage.setItem("progress", bar);
+}
+
+function loadProgressBar() {
+progress = localStorage.getItem(progress);
+barItem.style.width = progress + "%";
+displayResult2.innerHTML="BITCH";
 }
