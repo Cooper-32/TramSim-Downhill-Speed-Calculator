@@ -81,14 +81,14 @@ function addDistance() {
   const barItem = document.getElementById("item");
   barItem.style.width = bar + "%";
   document.getElementById("item").innerHTML = bar <= 0 ? `0.00%` : bar <= 100 ? `${bar.toFixed(2)}%` : `100.00%`;
-  localStorage.setItem("progress", bar);
+//  localStorage.setItem("progress", bar);
 }
 
-function loadProgressBar() {
-  setTimeout(()=> {
-  const barItem = document.getElementById("item");
-  progress = Number(localStorage.getItem("progress")) || 0;
-  barItem.style.width = progress + "%";
-  barItem.innerHTML = Number(progress).toFixed(2);
- }, 1000)
-}
+//function loadProgressBar() {
+//  setTimeout(()=> {
+//  const barItem = document.getElementById("item");
+ // progress = Number(localStorage.getItem("progress")) || 0;
+//  barItem.style.width = progress + "%";
+//  barItem.innerHTML = Number(progress).toFixed(2);
+// }, 1000)
+//}
