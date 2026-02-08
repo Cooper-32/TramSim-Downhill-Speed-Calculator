@@ -90,5 +90,5 @@ function loadProgressBar() {
   progress = Number(localStorage.getItem("progress")) || 0;
   barItem.style.width = progress + "%";
   barItem.innerHTML = `${Number(progress).toFixed(2)}%`;
- }, 1000)
+ }, 100)
 }
