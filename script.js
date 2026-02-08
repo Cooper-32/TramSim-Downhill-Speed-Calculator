@@ -85,7 +85,7 @@ function addDistance() {
 }
 
 function loadProgressBar() {
-progress = localStorage.getItem("progress");
+progress = localStorage.getItem("progress") || 0;
 barItem.style.width = progress + "%";
 displayResult.innerHTML="BITCH";
 }
