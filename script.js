@@ -87,5 +87,5 @@ function addDistance() {
 function loadProgressBar() {
 progress = localStorage.getItem("progress");
 barItem.style.width = progress + "%";
-displayResult2.innerHTML="BITCH";
+displayResult.innerHTML="BITCH";
 }
