@@ -2,14 +2,15 @@ const AVG_SPEED = 152;
 const TOP_SPEED = 161.75;
 const AVG_POINTS = 15000;
 const REQ_DISTANCE = 40008;
-let hours;
-let minutes;
-let distance;
-let points;
-let progress;
-let displayResult = document.getElementById("displayResult2");
-let selectElement = document.getElementById("calcMode");
+
 let selected = "averageStats";
+let data = {
+  distance: 0,
+  points: 0,
+  hours: 0,
+  minutes: 0
+};
+
 const inputs = {
   distance: document.getElementById("distanceInput"),
   points: document.getElementById("tsp"),
@@ -17,8 +18,16 @@ const inputs = {
   minutes: document.getElementById("minutesInput"),
 };
 
-selectElement.addEventListener("change", ()=> {
-  selected = selectElement.value;
+const element = {
+  displayResult: document.getElementById("displayResult2"),
+  select: document.getElementById("calcMode"),
+  goalInput: document.getElementById("distanceGoal"),
+  barItem: document.getElementById("item"),
+  barTracker: document.getElementById("barTracker"),
+};
+
+element.select.addEventListener("change", ()=> {
+  selected = element.select.value;
   if (selected === "help") {
     window.location.href = "./help.html";
   }
@@ -43,52 +52,54 @@ selectElement.addEventListener("change", ()=> {
 });
 
 function getValues() {
-  hours = document.getElementById("hoursInput").value || 0;
-  minutes = document.getElementById("minutesInput").value / 60 || 0;
-  distance = document.getElementById("distanceInput").value || 0;
-  points = document.getElementById("tsp").value || 0;
+  data.hours = inputs.hours.value || 0;
+  data.minutes = inputs.minutes.value / 60 || 0;
+  data.distance = inputs.distance.value || 0;
+  data.points = inputs.points.value || 0;
 }
 
 function calculate() {
   getValues();
   if (selected === "averageStats") {
-    let totalTime = Number(hours) + Number(minutes);
-    let result = distance / totalTime;
-    points = points / totalTime;
-    displayResult.innerHTML = `∅ Speed: ${result.toFixed(2)}km/h, ${points.toFixed(2)} TSP/h`;
+    let totalTime = Number(data.hours) + Number(data.minutes);
+    let result = data.distance / totalTime;
+    data.points = data.points / totalTime;
+    element.displayResult.innerHTML = `∅ Speed: ${result.toFixed(2)}km/h, ${data.points.toFixed(2)} TSP/h`;
   }
   else if (selected === "timeDistance") {
-    result = distance / AVG_SPEED;
+    result = data.distance / AVG_SPEED;
     let hoursInt = Math.floor(result);
     let minutesInt = (result - hoursInt) * 60;
-    displayResult.innerHTML = `Time for ${Number(distance).toFixed(1)}km: ~${hoursInt}h ${Math.round(minutesInt)}min`;
+    element.displayResult.innerHTML = `Time for ${Number(data.distance).toFixed(1)}km: ~${hoursInt}h ${Math.round(minutesInt)}min`;
   }
   else if (selected === "timePoints") {
-    result = points / AVG_POINTS;
+    result = data.points / AVG_POINTS;
     let hoursInt = Math.floor(result);
     let minutesInt = (result - hoursInt) * 60;
-    displayResult.innerHTML = `Time for ${parseInt(points)} TSP: ~${hoursInt}h ${Math.round(minutesInt)}min`;
+    element.displayResult.innerHTML = `Time for ${parseInt(data.points)} TSP: ~${hoursInt}h ${Math.round(minutesInt)}min`;
   }
   else if (selected === "speedglitch") {
-  result = Math.sqrt(TOP_SPEED ** 2 + distance ** 2);
-  displayResult.innerHTML = `Top Speed with ${distance}km/h: ${result.toFixed(2)}km/h`;
+  result = Math.sqrt(TOP_SPEED ** 2 + data.distance ** 2);
+  element.displayResult.innerHTML = `Top Speed with ${data.distance}km/h: ${result.toFixed(2)}km/h`;
   }
 }
 
 function addDistance() {
-  let distanceGoalInput = document.getElementById("distanceGoal").value || 0;
+  let distanceGoalInput = element.goalInput.value || 0;
   let bar = (distanceGoalInput / REQ_DISTANCE) * 100;
-  const barItem = document.getElementById("item");
-  barItem.style.width = bar + "%";
-  document.getElementById("item").innerHTML = bar <= 0 ? `0.00%` : bar <= 100 ? `${bar.toFixed(2)}%` : `100.00%`;
+  element.barItem.style.width = bar + "%";
+  element.barItem.innerHTML = bar <= 0 ? `0.00%` : bar <= 100 ? `${bar.toFixed(2)}%` : `100.00%`;
+  element.barTracker.innerHTML = `${Number(Math.round(distanceGoalInput)).toLocaleString()}/${REQ_DISTANCE.toLocaleString()}km`;
   localStorage.setItem("progress", bar);
+  localStorage.setItem("tracker", distanceGoalInput);
 }
 
 function loadProgressBar() {
   setTimeout(()=> {
-  const barItem = document.getElementById("item");
-  progress = Number(localStorage.getItem("progress")) || 0;
-  barItem.style.width = progress + "%";
-  barItem.innerHTML = `${Number(progress).toFixed(2)}%`;
+  let progress = Number(localStorage.getItem("progress")) || 0;
+  let tracker = Number(localStorage.getItem("tracker")) || 0;
+  element.barItem.style.width = progress + "%";
+  element.barItem.innerHTML = `${Number(progress).toFixed(2)}%`;
+  element.barTracker.innerHTML = `${Math.round(tracker).toLocaleString()}/${REQ_DISTANCE.toLocaleString()}km`;
  }, 100)
 }

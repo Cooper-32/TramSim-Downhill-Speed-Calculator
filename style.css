@@ -165,3 +165,10 @@ a {
   border: 2px solid red;
   font-weight: bold;
 }
+
+#barTracker {
+width: 125px;
+margin: auto;
+font-size: 14px;
+font-weight: bold;
+}
