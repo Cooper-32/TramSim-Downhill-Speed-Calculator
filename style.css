@@ -167,8 +167,10 @@ a {
 }
 
 #barTracker {
-width: 125px;
-margin: auto;
-font-size: 14px;
-font-weight: bold;
+  width: 125px;
+  display: block;
+  margin: auto;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
 }
