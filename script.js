@@ -51,6 +51,13 @@ element.select.addEventListener("change", ()=> {
   }
 });
 
+element.barTracker.addEventListener("click", ()=> {
+  let status = element.barTracker.dataset.status === "true";
+  element.barTracker.dataset.status = !status;
+  let tracker = Number(localStorage.getItem("tracker")) || 0;
+  element.barTracker.innerHTML = status ? `${Math.round(tracker).toLocaleString()}/${REQ_DISTANCE.toLocaleString()}km` : `${Math.round(REQ_DISTANCE - tracker).toLocaleString()} km left`;
+});
+
 function getValues() {
   data.hours = inputs.hours.value || 0;
   data.minutes = inputs.minutes.value / 60 || 0;
